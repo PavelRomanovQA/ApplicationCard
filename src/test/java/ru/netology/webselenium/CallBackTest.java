@@ -86,6 +86,19 @@ public class CallBackTest {
                         ("Поле обязательно для заполнения"));
     }
 
+    @Test
+    void EmptyCheckbox() {
+        open ("http://localhost:9999");
+        SelenideElement form = $("form");
+        form.$("[data-test-id=name] input")
+                .setValue("Иваныч-Ивановичев Иван");
+        form.$("[data-test-id=phone] input").setValue("+79808585555");
+        form.$(".button").click();
+        form.$("[data-test-id='agreement'].input_invalid .checkbox__text")
+                .shouldHave(exactText
+                        ("Я соглашаюсь с условиями обработки и использования моих персональных данных и разрешаю сделать запрос в бюро кредитных историй"));
+    }
+
 
     @Test
     void agreementNotMarked(){
